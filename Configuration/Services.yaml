@@ -1,0 +1,28 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Pagemachine\OpcacheControl\:
+    resource: '../Classes/*'
+
+  Pagemachine\OpcacheControl\Command\OpcacheResetCommand:
+    tags:
+      -
+        name: console.command
+        command: opcache:reset
+        description: Reset PHP opcache for web
+
+  Pagemachine\OpcacheControl\Command\OpcacheStatusCommand:
+    tags:
+      -
+        name: console.command
+        command: opcache:status
+        description: Output PHP opcache status for web
+
+  Pagemachine\OpcacheControl\Http\Middleware\OpcacheResetHandler:
+    public: true
+
+  Pagemachine\OpcacheControl\Http\Middleware\OpcacheStatusHandler:
+    public: true
