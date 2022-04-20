@@ -40,7 +40,19 @@ final class OpcacheActionExecutor implements LoggerAwareInterface
             'contentType' => $response->getHeaderLine('content-type'),
         ]);
 
-        $result = json_decode((string)$response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+        try {
+            $result = json_decode(
+                (string)$response->getBody(),
+                true,
+                512,
+                JSON_THROW_ON_ERROR
+            );
+        } catch (\JsonException $e) {
+            $result = [
+                'success' => false,
+                'error' => sprintf('Invalid JSON response (%s)', $e->getMessage()),
+            ];
+        }
 
         return $result;
     }
