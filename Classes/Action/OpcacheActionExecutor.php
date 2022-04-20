@@ -5,9 +5,13 @@ declare(strict_types = 1);
 namespace Pagemachine\OpcacheControl\Action;
 
 use Psr\Http\Client\ClientInterface;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 
-final class OpcacheActionExecutor
+final class OpcacheActionExecutor implements LoggerAwareInterface
 {
+    use LoggerAwareTrait;
+
     private ClientInterface $client;
     private OpcacheActionRequestFactory $opcacheActionRequestFactory;
 
@@ -22,8 +26,37 @@ final class OpcacheActionExecutor
     public function execute(OpcacheAction $action): array
     {
         $request = $this->opcacheActionRequestFactory->createRequest($action);
+
+        $this->logger->debug('Sending Opcache action request', [
+            'uri' => (string)$request->getUri(),
+            'method' => $request->getMethod(),
+        ]);
+
         $response = $this->client->sendRequest($request);
-        $result = json_decode((string)$response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+
+        $this->logger->debug('Received Opcache action response', [
+            'uri' => (string)$request->getUri(),
+            'status' => $response->getStatusCode(),
+        ]);
+
+        try {
+            $result = json_decode(
+                (string)$response->getBody(),
+                true,
+                512,
+                JSON_THROW_ON_ERROR
+            );
+        } catch (\JsonException $e) {
+            $this->logger->error('Invalid Opcache action JSON response', [
+                'contentType' => $response->getHeaderLine('content-type'),
+                'body' => (string)$response->getBody(),
+            ]);
+
+            $result = [
+                'success' => false,
+                'error' => sprintf('Invalid JSON response (%s), see log for details', $e->getMessage()),
+            ];
+        }
 
         return $result;
     }
