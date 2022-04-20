@@ -37,7 +37,6 @@ final class OpcacheActionExecutor implements LoggerAwareInterface
         $this->logger->debug('Received Opcache action response', [
             'uri' => (string)$request->getUri(),
             'status' => $response->getStatusCode(),
-            'contentType' => $response->getHeaderLine('content-type'),
         ]);
 
         try {
@@ -48,9 +47,14 @@ final class OpcacheActionExecutor implements LoggerAwareInterface
                 JSON_THROW_ON_ERROR
             );
         } catch (\JsonException $e) {
+            $this->logger->error('Invalid Opcache action JSON response', [
+                'contentType' => $response->getHeaderLine('content-type'),
+                'body' => (string)$response->getBody(),
+            ]);
+
             $result = [
                 'success' => false,
-                'error' => sprintf('Invalid JSON response (%s)', $e->getMessage()),
+                'error' => sprintf('Invalid JSON response (%s), see log for details', $e->getMessage()),
             ];
         }
 
