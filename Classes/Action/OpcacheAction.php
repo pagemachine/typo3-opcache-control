@@ -8,26 +8,21 @@ use TYPO3\CMS\Core\Type\Enumeration;
 
 final class OpcacheAction extends Enumeration
 {
-    public const RESET = 'reset';
-    public const STATUS = 'status';
+    public const RESET = 'opcache_reset';
+    public const STATUS = 'opcache_status';
 
     public function getRequestMethod(): string
     {
         return self::$requestMethods[$this->value];
     }
 
-    public function getUriPath(): string
+    public function getUriQuery(): string
     {
-        return self::$uriPaths[$this->value];
+        return sprintf('eID=%s', $this->value);
     }
 
     private static array $requestMethods = [
         self::RESET => 'post',
         self::STATUS => 'get',
-    ];
-
-    private static array $uriPaths = [
-        self::RESET => '/-/opcache/reset',
-        self::STATUS => '/-/opcache/status',
     ];
 }

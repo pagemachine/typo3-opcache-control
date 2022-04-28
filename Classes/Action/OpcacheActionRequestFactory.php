@@ -32,7 +32,7 @@ final class OpcacheActionRequestFactory
     {
         foreach ($this->siteFinder->getAllSites() as $site) {
             $uri = $site->getRouter()->generateUri((string)$site->getRootPageId());
-            $uri = $uri->withPath($action->getUriPath());
+            $uri = $uri->withQuery($action->getUriQuery());
 
             $request = $this->requestFactory->createRequest($action->getRequestMethod(), $uri);
             $request = $this->requestSignature->sign($request);

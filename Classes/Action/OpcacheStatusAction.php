@@ -2,17 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace Pagemachine\OpcacheControl\Http\Middleware;
+namespace Pagemachine\OpcacheControl\Action;
 
-use Pagemachine\OpcacheControl\Action\OpcacheAction;
 use Pagemachine\OpcacheControl\Action\OpcacheActionResponseFactory;
 use Pagemachine\OpcacheControl\Status\OpcacheStatusReporter;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\MiddlewareInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 
-final class OpcacheStatusHandler implements MiddlewareInterface
+final class OpcacheStatusAction
 {
     private OpcacheActionResponseFactory $opcacheActionResponseFactory;
     private OpcacheStatusReporter $opcacheStatusReporter;
@@ -25,14 +22,8 @@ final class OpcacheStatusHandler implements MiddlewareInterface
         $this->opcacheStatusReporter = $opcacheStatusReporter;
     }
 
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $action = new OpcacheAction(OpcacheAction::STATUS);
-
-        if (strtolower($request->getMethod()) !== $action->getRequestMethod() || $request->getUri()->getPath() !== $action->getUriPath()) {
-            return $handler->handle($request);
-        }
-
         $response = $this->opcacheActionResponseFactory->createResponse($request, function (array $result): array {
             $result['status'] = $this->opcacheStatusReporter->getStatus();
 

@@ -7,6 +7,12 @@ services:
   Pagemachine\OpcacheControl\:
     resource: '../Classes/*'
 
+  Pagemachine\OpcacheControl\Action\OpcacheResetAction:
+    public: true
+
+  Pagemachine\OpcacheControl\Action\OpcacheStatusAction:
+    public: true
+
   Pagemachine\OpcacheControl\Command\OpcacheResetCommand:
     tags:
       -
@@ -20,9 +26,3 @@ services:
         name: console.command
         command: opcache:status
         description: Output PHP opcache status for web
-
-  Pagemachine\OpcacheControl\Http\Middleware\OpcacheResetHandler:
-    public: true
-
-  Pagemachine\OpcacheControl\Http\Middleware\OpcacheStatusHandler:
-    public: true

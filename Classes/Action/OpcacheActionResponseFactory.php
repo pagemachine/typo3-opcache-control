@@ -52,7 +52,16 @@ final class OpcacheActionResponseFactory
         ];
 
         if ($payload !== null) {
-            $result = $payload($result);
+            try {
+                $result = $payload($result);
+            } catch (\BadMethodCallException $e) {
+                $response->getBody()->write(json_encode([
+                    'success' => false,
+                    'error' => $e->getMessage(),
+                ]));
+
+                return $response->withStatus(403);
+            }
         }
 
         $response->getBody()->write(json_encode($result));

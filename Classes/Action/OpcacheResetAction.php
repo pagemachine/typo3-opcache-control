@@ -2,17 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace Pagemachine\OpcacheControl\Http\Middleware;
+namespace Pagemachine\OpcacheControl\Action;
 
-use Pagemachine\OpcacheControl\Action\OpcacheAction;
 use Pagemachine\OpcacheControl\Action\OpcacheActionResponseFactory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\MiddlewareInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 use TYPO3\CMS\Core\Service\OpcodeCacheService;
 
-final class OpcacheResetHandler implements MiddlewareInterface
+final class OpcacheResetAction
 {
     private OpcacheActionResponseFactory $opcacheActionResponseFactory;
     private OpcodeCacheService $opcodeCacheService;
@@ -25,15 +22,16 @@ final class OpcacheResetHandler implements MiddlewareInterface
         $this->opcacheActionResponseFactory = $opcacheActionResponseFactory;
     }
 
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $action = new OpcacheAction(OpcacheAction::RESET);
+        $method = strtolower($request->getMethod());
+        $response = $this->opcacheActionResponseFactory->createResponse($request, function (array $result) use ($method): array {
+            if ($method !== 'post') {
+                throw new \BadMethodCallException(sprintf('Invalid request method "%s", expected "post"', $method), 1651143693);
+            }
 
-        if (strtolower($request->getMethod()) !== $action->getRequestMethod() || $request->getUri()->getPath() !== $action->getUriPath()) {
-            return $handler->handle($request);
-        }
-
-        $response = $this->opcacheActionResponseFactory->createResponse($request);
+            return $result;
+        });
 
         $this->opcodeCacheService->clearAllActive();
 
