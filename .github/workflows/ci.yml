@@ -41,7 +41,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: typo3-var
+          name: typo3-var-${{matrix.php}}-${{matrix.typo3}}
           path: Tests/_output/typo3temp/var
 
       - name: Cleanup
