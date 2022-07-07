@@ -38,6 +38,7 @@ jobs:
         run: docker-compose run --rm app composer build
 
       - name: Upload artifacts
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: typo3-var
