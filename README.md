@@ -1,18 +1,14 @@
 # TYPO3 Opcache Control ![CI](https://github.com/pagemachine/typo3-opcache-control/workflows/CI/badge.svg)
 
-PHP Opcache management for TYPO3
+Provides CLI commands for PHP Opcache management within TYPO3. This is essential to e.g. reset the Opcache on deployments.
+
+Since the web Opcache is managed, resetting the Opcache is essentially the same as the related action in the TYPO3 backend.
 
 ## Installation
 
 Via [Composer](https://packagist.org/packages/pagemachine/typo3-opcache-control):
 
     composer require pagemachine/typo3-opcache-control
-
-## Purpose
-
-This package provides CLI commands for PHP Opcache management within TYPO3. This is essential to e.g. reset the Opcache on deployments.
-
-Since the web Opcache is managed, resetting the Opcache is essentially the same as the related action in the TYPO3 backend.
 
 ## Usage
 
