@@ -1,4 +1,7 @@
 /composer.lock
-/Tests/_output
+/Tests/_output/*
+!/Tests/_output/typo3conf
+/Tests/_output/typo3conf/*
+!/Tests/_output/typo3conf/AdditionalFactoryConfiguration.php
 /Tests/_support/_generated
 /vendor
