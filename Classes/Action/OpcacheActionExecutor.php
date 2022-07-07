@@ -10,6 +10,8 @@ use Psr\Log\LoggerAwareTrait;
 
 final class OpcacheActionExecutor implements LoggerAwareInterface
 {
+    private const MAX_ATTEMPTS = 3;
+
     use LoggerAwareTrait;
 
     private ClientInterface $client;
@@ -27,36 +29,58 @@ final class OpcacheActionExecutor implements LoggerAwareInterface
     {
         $request = $this->opcacheActionRequestFactory->createRequest($action);
 
-        $this->logger->debug('Sending Opcache action request', [
-            'uri' => (string)$request->getUri(),
-            'method' => $request->getMethod(),
-        ]);
+        $attempt = 1;
 
-        $response = $this->client->sendRequest($request);
+        do {
+            sleep($attempt - 1);
 
-        $this->logger->debug('Received Opcache action response', [
-            'uri' => (string)$request->getUri(),
-            'status' => $response->getStatusCode(),
-        ]);
-
-        try {
-            $result = json_decode(
-                (string)$response->getBody(),
-                true,
-                512,
-                JSON_THROW_ON_ERROR
-            );
-        } catch (\JsonException $e) {
-            $this->logger->error('Invalid Opcache action JSON response', [
-                'contentType' => $response->getHeaderLine('content-type'),
-                'body' => (string)$response->getBody(),
+            $this->logger->debug('Sending Opcache action request', [
+                'uri' => (string)$request->getUri(),
+                'method' => $request->getMethod(),
+                'attempt' => $attempt,
+                'maxAttempts' => self::MAX_ATTEMPTS,
             ]);
 
-            $result = [
-                'success' => false,
-                'error' => sprintf('Invalid JSON response (%s), see log for details', $e->getMessage()),
-            ];
-        }
+            $response = $this->client->sendRequest($request);
+
+            $this->logger->debug('Received Opcache action response', [
+                'uri' => (string)$request->getUri(),
+                'status' => $response->getStatusCode(),
+                'attempt' => $attempt,
+                'maxAttempts' => self::MAX_ATTEMPTS,
+            ]);
+
+            try {
+                $result = json_decode(
+                    (string)$response->getBody(),
+                    true,
+                    512,
+                    JSON_THROW_ON_ERROR
+                );
+
+                $this->logger->debug('Parsed Opcache action JSON response', [
+                    'uri' => (string)$request->getUri(),
+                    'result' => $result,
+                    'attempt' => $attempt,
+                    'maxAttempts' => self::MAX_ATTEMPTS,
+                ]);
+
+                break;
+            } catch (\JsonException $e) {
+                $this->logger->error('Failed parsing Opcache action JSON response', [
+                    'uri' => (string)$request->getUri(),
+                    'contentType' => $response->getHeaderLine('content-type'),
+                    'body' => (string)$response->getBody(),
+                    'attempt' => $attempt,
+                    'maxAttempts' => self::MAX_ATTEMPTS,
+                ]);
+
+                $result = [
+                    'success' => false,
+                    'error' => sprintf('Invalid JSON response (%s), see log for details', $e->getMessage()),
+                ];
+            }
+        } while (self::MAX_ATTEMPTS > $attempt++);
 
         return $result;
     }
