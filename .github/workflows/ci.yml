@@ -37,6 +37,12 @@ jobs:
           TYPO3_VERSION: ${{matrix.typo3}}
         run: docker-compose run --rm app composer build
 
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: typo3-var
+          path: Tests/_output/typo3temp/var
+
       - name: Cleanup
         if: ${{ always() }}
         run: docker-compose down --volumes
