@@ -10,6 +10,17 @@ Via [Composer](https://packagist.org/packages/pagemachine/typo3-opcache-control)
 
     composer require pagemachine/typo3-opcache-control
 
+## Site setup
+
+The CLI commands internally perform real HTTP requests. For this all site configurations **must use full URLs** for their `base`. A basic `/` will not work:
+
+```diff
+-base: /
++base: https://example.org/
+```
+
+The same goes for `baseVariants` and `%env()%` placeholders which can be used for different URLs per environment.
+
 ## Usage
 
 Use the TYPO3 CLI or TYPO3 Console to execute Opcache control commands.
