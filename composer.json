@@ -19,7 +19,7 @@
         "typo3/cms-extbase": "^10.4 || ^11.5"
     },
     "require-dev": {
-        "cakephp/cakephp-codesniffer": "^4.0",
+        "cakephp/cakephp-codesniffer": "^5.0",
         "codeception/codeception": "^4.0",
         "codeception/module-asserts": "^2.0",
         "codeception/module-cli": "^2.0",
