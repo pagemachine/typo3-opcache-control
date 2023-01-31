@@ -29,7 +29,9 @@ final class OpcacheResetHandler implements MiddlewareInterface
     {
         $action = new OpcacheAction(OpcacheAction::RESET);
 
-        if (strtolower($request->getMethod()) !== $action->getRequestMethod() || $request->getUri()->getPath() !== $action->getUriPath()) {
+        $resetPathDetected = substr_compare($request->getUri()->getPath(), $action->getUriPath(), -(strlen($action->getUriPath())), strlen($action->getUriPath())) === 0;
+
+        if (strtolower($request->getMethod()) !== $action->getRequestMethod() || $resetPathDetected) {
             return $handler->handle($request);
         }
 
