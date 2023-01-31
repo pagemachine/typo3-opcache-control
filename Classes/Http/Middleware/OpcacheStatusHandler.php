@@ -31,7 +31,7 @@ final class OpcacheStatusHandler implements MiddlewareInterface
 
         $statusPathDetected = substr_compare($request->getUri()->getPath(), $action->getUriPath(), -(strlen($action->getUriPath())), strlen($action->getUriPath())) === 0;
 
-        if (strtolower($request->getMethod()) !== $action->getRequestMethod() || $statusPathDetected) {
+        if (strtolower($request->getMethod()) !== $action->getRequestMethod() || !$statusPathDetected) {
             return $handler->handle($request);
         }
 
