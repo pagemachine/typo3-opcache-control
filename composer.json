@@ -85,7 +85,7 @@
         "test:cli": [
             "mkdir -p Tests/_output/typo3conf/ext",
             "ln -sfn ../../../.. Tests/_output/typo3conf/ext/$(composer config extra.typo3/cms.extension-key)",
-            "codecept run Cli"
+            "codecept run --debug Cli"
         ]
     }
 }
