@@ -9,7 +9,20 @@ services:
       mysql:
         condition: service_healthy
     environment:
-      TYPO3_INSTALL_ADMIN_PASSWORD: password
+      PHP_EXTENSION_INTL: 1
+      SERVER_SOFTWARE: Apache
+      TYPO3_DB_DRIVER: mysqli
+      TYPO3_DB_HOST: mysql
+      TYPO3_DB_PORT: 3306
+      TYPO3_DB_USERNAME: root
+      TYPO3_DB_PASSWORD: root
+      TYPO3_DB_DBNAME: typo3
+      TYPO3_PROJECT_NAME: Test
+      TYPO3_SETUP_ADMIN_EMAIL: admin@example.org
+      TYPO3_SETUP_ADMIN_USERNAME: admin
+      TYPO3_SETUP_ADMIN_PASSWORD: Passw0rd!
+      TYPO3_SETUP_CREATE_SITE: http://apache/
+      TYPO3_INSTALL_ADMIN_PASSWORD: Passw0rd!
       TYPO3_INSTALL_ADMIN_USER: admin
       TYPO3_INSTALL_DB_DBNAME: typo3
       TYPO3_INSTALL_DB_DRIVER: mysqli
