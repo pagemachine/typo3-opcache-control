@@ -12,11 +12,7 @@ final class OpcacheResetCest
 
     public function _before(CliTester $I)
     {
-        $I->runShellCommand('typo3 setup --no-interaction', false);
-
-        if (strpos($I->grabShellOutput(), 'There are no commands defined in the "install" namespace.') !== false) {
-            $I->runShellCommand('typo3cms install:setup --no-interaction', false);
-        }
+        $I->runShellCommand('typo3cms install:setup --no-interaction || typo3 setup --no-interaction', false);
     }
 
     /**
