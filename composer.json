@@ -20,8 +20,8 @@
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^5.0",
-        "codeception/codeception": "^4.0",
-        "codeception/module-asserts": "^2.0",
+        "codeception/codeception": "^4.0 || ^5.0",
+        "codeception/module-asserts": "^2.0 || ^3.0",
         "codeception/module-cli": "^2.0",
         "ergebnis/composer-normalize": "^2.3",
         "helhum/typo3-console": "^6.0 || ^7.0 || ^8.0",
