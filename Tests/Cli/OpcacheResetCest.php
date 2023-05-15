@@ -12,7 +12,11 @@ final class OpcacheResetCest
 
     public function _before(CliTester $I)
     {
-        $I->runShellCommand('typo3cms install:setup --no-interaction', false);
+        $I->runShellCommand('typo3 install:setup --no-interaction', false);
+
+        if (strpos($I->grabShellOutput(), 'There are no commands defined in the "install" namespace.') !== false) {
+            $I->runShellCommand('typo3cms install:setup --no-interaction', false);
+        }
     }
 
     /**
@@ -20,7 +24,7 @@ final class OpcacheResetCest
      */
     public function resetOpcache(CliTester $I)
     {
-        $I->runShellCommand('typo3cms opcache:status');
+        $I->runShellCommand('typo3 opcache:status');
 
         preg_match_all(
             self::NUM_CACHED_SCRIPTS_PATTERN,
@@ -28,11 +32,11 @@ final class OpcacheResetCest
             $statisticsBefore
         );
 
-        $I->runShellCommand('typo3cms opcache:reset');
+        $I->runShellCommand('typo3 opcache:reset');
 
         $I->seeInShellOutput('Success: opcache reset');
 
-        $I->runShellCommand('typo3cms opcache:status');
+        $I->runShellCommand('typo3 opcache:status');
 
         preg_match_all(
             self::NUM_CACHED_SCRIPTS_PATTERN,
