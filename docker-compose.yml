@@ -10,6 +10,7 @@ services:
         condition: service_healthy
     environment:
       PHP_EXTENSION_INTL: 1
+      SERVER_SOFTWARE: Apache
       TYPO3_DB_DRIVER: mysqli
       TYPO3_DB_HOST: mysql
       TYPO3_DB_PORT: 3306
