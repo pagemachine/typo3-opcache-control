@@ -11,6 +11,7 @@ services:
     environment:
       PHP_EXTENSION_INTL: 1
       SERVER_SOFTWARE: Apache
+      STARTUP_COMMAND_1: sudo composer self-update 2.6.2
       TYPO3_DB_DRIVER: mysqli
       TYPO3_DB_HOST: mysql
       TYPO3_DB_PORT: 3306
