@@ -22,6 +22,7 @@ services:
       TYPO3_SETUP_ADMIN_USERNAME: admin
       TYPO3_SETUP_ADMIN_PASSWORD: Passw0rd!
       TYPO3_SETUP_CREATE_SITE: http://apache/
+      TYPO3_SERVER_TYPE: apache
       TYPO3_INSTALL_ADMIN_PASSWORD: Passw0rd!
       TYPO3_INSTALL_ADMIN_USER: admin
       TYPO3_INSTALL_DB_DBNAME: typo3
