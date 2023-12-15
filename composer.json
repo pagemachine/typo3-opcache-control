@@ -32,7 +32,7 @@
         "slevomat/coding-standard": "^8.0",
         "squizlabs/php_codesniffer": "^3.1",
         "friendsofphp/php-cs-fixer": "^3.41",
-        "typo3/coding-standards": "^0.6.1"
+        "typo3/coding-standards": "^0.7.1"
     },
     "autoload": {
         "psr-4": {
