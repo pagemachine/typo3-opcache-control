@@ -78,8 +78,8 @@
             "codecept build",
             "phpstan analyse --ansi --no-progress --memory-limit=512M --configuration=phpstan.neon"
         ],
-        "php:style:fix": "phpcbf",
-        "php:style:lint": "phpcs",
+        "php:style:fix": "php-cs-fixer fix --diff",
+        "php:style:lint": "php-cs-fixer fix --dry-run --diff",
         "php:syntax:lint": "parallel-lint --exclude vendor --exclude Tests/_output .",
         "test": [
             "@test:cli"
