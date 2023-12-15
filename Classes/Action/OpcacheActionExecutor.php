@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Pagemachine\OpcacheControl\Action;
 
@@ -10,9 +10,8 @@ use Psr\Log\LoggerAwareTrait;
 
 final class OpcacheActionExecutor implements LoggerAwareInterface
 {
-    private const MAX_ATTEMPTS = 3;
-
     use LoggerAwareTrait;
+    private const MAX_ATTEMPTS = 3;
 
     private ClientInterface $client;
     private OpcacheActionRequestFactory $opcacheActionRequestFactory;
@@ -80,7 +79,7 @@ final class OpcacheActionExecutor implements LoggerAwareInterface
                     'error' => sprintf('Invalid JSON response (%s), see log for details', $e->getMessage()),
                 ];
             }
-        } while (self::MAX_ATTEMPTS > $attempt++);
+        } while ($attempt++ < self::MAX_ATTEMPTS);
 
         return $result;
     }

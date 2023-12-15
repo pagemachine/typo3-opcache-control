@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Pagemachine\OpcacheControl\Tests;
 
@@ -23,7 +23,7 @@ class CliTester extends \Codeception\Actor
 {
     use _generated\CliTesterActions;
 
-/**
- * Define custom actions here
- */
+    /**
+     * Define custom actions here
+     */
 }

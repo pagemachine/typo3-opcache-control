@@ -1,10 +1,8 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Pagemachine\OpcacheControl\Tests;
-
-use Pagemachine\OpcacheControl\Tests\CliTester;
 
 final class OpcacheResetCest
 {
