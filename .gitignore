@@ -1,3 +1,4 @@
+/.php-cs-fixer.cache
 /composer.lock
 /Tests/_output/*
 !/Tests/_output/typo3conf

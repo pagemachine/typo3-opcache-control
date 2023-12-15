@@ -2,10 +2,12 @@
 .gitattributes export-ignore
 .github export-ignore
 .gitignore export-ignore
+.php-cs-fixer.* export-ignore
 codeception.yml export-ignore
+composer.lock export-ignore
 docker-compose.yml export-ignore
-phpcs.xml export-ignore
 phpstan.neon export-ignore
 renovate.json export-ignore
 
 Tests/ export-ignore
+vendor/ export-ignore
