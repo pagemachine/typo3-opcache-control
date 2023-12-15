@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   app:
-    image: thecodingmachine/php:${PHP_VERSION:-7.4}-v4-cli-node16
+    image: thecodingmachine/php:${PHP_VERSION:-8.1}-v4-cli-node16
     depends_on:
       apache:
         condition: service_healthy
@@ -37,7 +37,7 @@ services:
       TYPO3_PATH_APP: /usr/src/app/Tests/_output
       TYPO3_PATH_ROOT: /usr/src/app/Tests/_output
       TYPO3_PATH_WEB: /usr/src/app/Tests/_output
-      TYPO3_VERSION: ${TYPO3_VERSION:-^11.5}
+      TYPO3_VERSION: ${TYPO3_VERSION:-^12.4}
     volumes:
       - ./:/usr/src/app
 
