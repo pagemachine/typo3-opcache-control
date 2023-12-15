@@ -37,7 +37,7 @@ services:
       TYPO3_PATH_APP: /usr/src/app/Tests/_output
       TYPO3_PATH_ROOT: /usr/src/app/Tests/_output
       TYPO3_PATH_WEB: /usr/src/app/Tests/_output
-      TYPO3_VERSION: ${TYPO3_VERSION:-^11.5}
+      TYPO3_VERSION: ${TYPO3_VERSION:-^12.4}
     volumes:
       - ./:/usr/src/app
 
