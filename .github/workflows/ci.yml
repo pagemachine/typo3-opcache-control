@@ -35,7 +35,7 @@ jobs:
         env:
           PHP_VERSION: ${{matrix.php}}
           TYPO3_VERSION: ${{matrix.typo3}}
-        run: docker-compose run --rm app composer build
+        run: docker compose run --rm app composer build
 
       - name: Upload artifacts
         if: always()
@@ -46,4 +46,4 @@ jobs:
 
       - name: Cleanup
         if: ${{ always() }}
-        run: docker-compose down --volumes
+        run: docker compose down --volumes
