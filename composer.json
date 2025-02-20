@@ -78,8 +78,11 @@
         "php:lint": [
             "@php:syntax:lint",
             "@php:style:lint",
-            "@php:static:lint"
+            "@php:static:lint",
+            "@php:rector:lint"
         ],
+        "php:rector:fix": "rector",
+        "php:rector:lint": "rector --dry-run --no-progress-bar",
         "php:static:lint": [
             "codecept build",
             "phpstan analyse --ansi --no-progress --memory-limit=512M --configuration=phpstan.neon"
