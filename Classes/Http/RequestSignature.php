@@ -16,13 +16,7 @@ final class RequestSignature
 {
     private const HEADER_NAME = 'X-Opcache-Control-Signature';
 
-    private HashService $hashService;
-
-    public function __construct(
-        HashService $hashService
-    ) {
-        $this->hashService = $hashService;
-    }
+    public function __construct(private readonly HashService $hashService) {}
 
     public function sign(RequestInterface $request): RequestInterface
     {

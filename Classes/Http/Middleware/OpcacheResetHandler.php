@@ -14,16 +14,10 @@ use TYPO3\CMS\Core\Service\OpcodeCacheService;
 
 final class OpcacheResetHandler implements MiddlewareInterface
 {
-    private OpcacheActionResponseFactory $opcacheActionResponseFactory;
-    private OpcodeCacheService $opcodeCacheService;
-
     public function __construct(
-        OpcacheActionResponseFactory $opcacheActionResponseFactory,
-        OpcodeCacheService $opcodeCacheService
-    ) {
-        $this->opcodeCacheService = $opcodeCacheService;
-        $this->opcacheActionResponseFactory = $opcacheActionResponseFactory;
-    }
+        private readonly OpcacheActionResponseFactory $opcacheActionResponseFactory,
+        private readonly OpcodeCacheService $opcodeCacheService,
+    ) {}
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {

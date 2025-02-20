@@ -16,13 +16,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class OpcacheStatusCommand extends Command
 {
-    private OpcacheActionExecutor $opcacheActionExecutor;
-
     public function __construct(
-        OpcacheActionExecutor $opcacheActionExecutor
+        private readonly OpcacheActionExecutor $opcacheActionExecutor
     ) {
-        $this->opcacheActionExecutor = $opcacheActionExecutor;
-
         parent::__construct();
     }
 

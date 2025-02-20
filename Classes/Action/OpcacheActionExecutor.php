@@ -13,16 +13,10 @@ final class OpcacheActionExecutor implements LoggerAwareInterface
     use LoggerAwareTrait;
     private const MAX_ATTEMPTS = 3;
 
-    private ClientInterface $client;
-    private OpcacheActionRequestFactory $opcacheActionRequestFactory;
-
     public function __construct(
-        ClientInterface $client,
-        OpcacheActionRequestFactory $opcacheActionRequestFactory
-    ) {
-        $this->client = $client;
-        $this->opcacheActionRequestFactory = $opcacheActionRequestFactory;
-    }
+        private ClientInterface $client,
+        private OpcacheActionRequestFactory $opcacheActionRequestFactory,
+    ) {}
 
     public function execute(OpcacheAction $action): array
     {

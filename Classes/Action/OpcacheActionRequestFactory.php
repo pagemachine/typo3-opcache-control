@@ -11,19 +11,11 @@ use TYPO3\CMS\Core\Site\SiteFinder;
 
 final class OpcacheActionRequestFactory
 {
-    private RequestFactoryInterface $requestFactory;
-    private RequestSignature $requestSignature;
-    private SiteFinder $siteFinder;
-
     public function __construct(
-        RequestFactoryInterface $requestFactory,
-        RequestSignature $requestSignature,
-        SiteFinder $siteFinder
-    ) {
-        $this->requestFactory = $requestFactory;
-        $this->requestSignature = $requestSignature;
-        $this->siteFinder = $siteFinder;
-    }
+        private readonly RequestFactoryInterface $requestFactory,
+        private readonly RequestSignature $requestSignature,
+        private readonly SiteFinder $siteFinder,
+    ) {}
 
     /**
      * @throws NoSiteException if no site was found

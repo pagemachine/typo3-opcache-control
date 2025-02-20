@@ -13,16 +13,10 @@ use Psr\Http\Message\ServerRequestInterface;
 
 final class OpcacheActionResponseFactory
 {
-    private RequestSignature $requestSignature;
-    private ResponseFactoryInterface $responseFactory;
-
     public function __construct(
-        RequestSignature $requestSignature,
-        ResponseFactoryInterface $responseFactory
-    ) {
-        $this->requestSignature = $requestSignature;
-        $this->responseFactory = $responseFactory;
-    }
+        private readonly RequestSignature $requestSignature,
+        private readonly ResponseFactoryInterface $responseFactory,
+    ) {}
 
     public function createResponse(ServerRequestInterface $request, \Closure $payload = null): ResponseInterface
     {

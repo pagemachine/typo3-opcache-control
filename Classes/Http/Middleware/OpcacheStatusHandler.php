@@ -14,16 +14,10 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 final class OpcacheStatusHandler implements MiddlewareInterface
 {
-    private OpcacheActionResponseFactory $opcacheActionResponseFactory;
-    private OpcacheStatusReporter $opcacheStatusReporter;
-
     public function __construct(
-        OpcacheActionResponseFactory $opcacheActionResponseFactory,
-        OpcacheStatusReporter $opcacheStatusReporter
-    ) {
-        $this->opcacheActionResponseFactory = $opcacheActionResponseFactory;
-        $this->opcacheStatusReporter = $opcacheStatusReporter;
-    }
+        private readonly OpcacheActionResponseFactory $opcacheActionResponseFactory,
+        private readonly OpcacheStatusReporter $opcacheStatusReporter,
+    ) {}
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
