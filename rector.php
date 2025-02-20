@@ -12,6 +12,10 @@ return RectorConfig::configure()
         __DIR__ . '/Classes',
         __DIR__ . '/Tests',
     ])
+    ->withSkip([
+        __DIR__ . '/Tests/_support/_generated',
+        __DIR__ . '/Tests/_output',
+    ])
     ->withRootFiles()
     ->withPhpSets()
     ->withSets([
