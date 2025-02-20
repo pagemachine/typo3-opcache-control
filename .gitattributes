@@ -7,6 +7,7 @@ codeception.yml export-ignore
 composer.lock export-ignore
 docker-compose.yml export-ignore
 phpstan.neon export-ignore
+rector.php export-ignore
 renovate.json export-ignore
 
 Tests/ export-ignore
