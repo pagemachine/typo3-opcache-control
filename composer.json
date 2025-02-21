@@ -1,4 +1,5 @@
 {
+    "abandoned": "gordalina/cachetool",
     "name": "pagemachine/typo3-opcache-control",
     "description": "PHP Opcache management for TYPO3",
     "license": "GPL-3.0-or-later",

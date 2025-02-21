@@ -1,5 +1,7 @@
 # TYPO3 Opcache Control ![CI](https://github.com/pagemachine/typo3-opcache-control/workflows/CI/badge.svg)
 
+**This package is abandoned, use [gordalina/cachetool](https://packagist.org/packages/gordalina/cachetool) instead!**
+
 Provides CLI commands for PHP Opcache management within TYPO3. This is essential to e.g. reset the Opcache on deployments.
 
 Since the web Opcache is managed, resetting the Opcache is essentially the same as the related action in the TYPO3 backend.
